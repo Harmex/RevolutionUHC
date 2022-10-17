@@ -25,7 +25,6 @@ public class RevolutionUHC extends JavaPlugin {
             System.out.println("[RevolutionUHC] Base de données initialisée");
         } catch (SQLException e) {
             System.out.println("[RevolutionUHC] Initialisation de la base de données échoué");
-            e.printStackTrace();
         }
 
         //Items

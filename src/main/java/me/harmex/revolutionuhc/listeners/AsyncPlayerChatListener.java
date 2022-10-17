@@ -29,12 +29,12 @@ public class AsyncPlayerChatListener implements Listener {
             role = playerStats.getRole();
             team = playerStats.getTeam();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("[RevolutionUHC] Impossible de récupérer les informations du joueur dans la base de données");
         }
         event.setFormat(ChatColor.GRAY + "[" + team.getColor() + "" + team.getName() + ChatColor.GRAY + ""
-                + ChatColor.GRAY + " - "
+                + ChatColor.GRAY + "-"
                 + ChatColor.GRAY + "" + role.getColor() + "" + role.getName() + ChatColor.GRAY + "]"
-                + ChatColor.RESET + " %s : " + ChatColor.GRAY + "%s"
+                + ChatColor.GRAY + " %s >> %s"
         );
     }
 }

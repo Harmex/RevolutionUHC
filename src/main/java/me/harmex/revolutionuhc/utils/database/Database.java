@@ -3,8 +3,12 @@ package me.harmex.revolutionuhc.utils.database;
 import me.harmex.revolutionuhc.models.PlayerStats;
 import me.harmex.revolutionuhc.utils.Role;
 import me.harmex.revolutionuhc.utils.Team;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import java.sql.*;
+import java.util.UUID;
 
 public class Database {
 
@@ -52,7 +56,6 @@ public class Database {
         statement.setString(1, playerStats.getUuid());
         statement.setString(2, playerStats.getRole().name());
         statement.setString(3, playerStats.getTeam().name());
-
         statement.executeUpdate();
         System.out.println("[RevolutionUHC] Nouveau joueur, création d'une nouvelle entrée dans la table");
         statement.close();
@@ -62,7 +65,6 @@ public class Database {
         PreparedStatement statement = getConnection().prepareStatement("UPDATE player_stats SET role = ? WHERE uuid = ?");
         statement.setString(1, role.name());
         statement.setString(2, uuid);
-
         statement.executeUpdate();
         System.out.println("[RevolutionUHC] Rôle mis à jour pour : " + uuid + ", avec le rôle " + role.getName());
         statement.close();
@@ -72,8 +74,12 @@ public class Database {
         PreparedStatement statement = getConnection().prepareStatement("UPDATE player_stats SET team = ? WHERE uuid = ?");
         statement.setString(1, team.name());
         statement.setString(2, uuid);
-
         statement.executeUpdate();
+        Player player = Bukkit.getPlayer(UUID.fromString(uuid));
+        if (player != null) {
+            player.setPlayerListName(ChatColor.GRAY + "[" + team.getColor() + "" + team.getName() + ChatColor.GRAY + "]"
+                    + " " + player.getName());
+        }
         System.out.println("[RevolutionUHC] Équipe mise à jour pour : " + uuid + ", avec l'équipe " + team.getName());
         statement.close();
     }

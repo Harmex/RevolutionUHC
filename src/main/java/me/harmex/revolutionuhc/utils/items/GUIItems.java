@@ -67,6 +67,7 @@ public class GUIItems {
 
     public ItemStack role(Player player) {
         ItemStack itemStack = new ItemStack(Material.STONE);
+        ItemMeta meta = itemStack.getItemMeta();
         try {
             PlayerStats playerStats = this.plugin.getDatabase().findPlayerStatsByUUID(player.getUniqueId().toString());
             Role role = playerStats.getRole();
@@ -81,7 +82,7 @@ public class GUIItems {
                 case SOLDIER -> itemStack = soldier();
                 case ARCHER -> itemStack = archer();
             }
-            ItemMeta meta = itemStack.getItemMeta();
+            meta = itemStack.getItemMeta();
             assert meta != null;
             meta.setDisplayName(ChatColor.GRAY + "Votre rôle : " + role.getColor() + role.getName());
             meta.setCustomModelData(CustomModelData.role);
@@ -97,13 +98,21 @@ public class GUIItems {
             itemStack.setItemMeta(meta);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            assert meta != null;
+            meta.setDisplayName(ChatColor.RED + "Oh non !");
+            List<String> lore = new ArrayList<>();
+            lore.add(ChatColor.GRAY + "Impossible de se connecter");
+            lore.add(ChatColor.GRAY + "à la base de données !");
+            meta.setLore(lore);
+            itemStack.setItemMeta(meta);
         }
+
 
         return itemStack;
     }
     public ItemStack team(Player player) {
         ItemStack itemStack = new ItemStack(Material.STONE);
+        ItemMeta meta = itemStack.getItemMeta();
         try {
             PlayerStats playerStats = this.plugin.getDatabase().findPlayerStatsByUUID(player.getUniqueId().toString());
             Team team = playerStats.getTeam();
@@ -126,7 +135,7 @@ public class GUIItems {
                 case RED -> itemStack = red();
                 case BLACK -> itemStack = black();
             }
-            ItemMeta meta = itemStack.getItemMeta();
+            meta = itemStack.getItemMeta();
             assert meta != null;
             meta.setDisplayName(ChatColor.GRAY + "Votre équipe : " + team.getColor() + team.getName());
             meta.setCustomModelData(CustomModelData.team);
@@ -142,7 +151,13 @@ public class GUIItems {
             itemStack.setItemMeta(meta);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            assert meta != null;
+            meta.setDisplayName(ChatColor.RED + "Oh non !");
+            List<String> lore = new ArrayList<>();
+            lore.add(ChatColor.GRAY + "Impossible de se connecter");
+            lore.add(ChatColor.GRAY + "à la base de données !");
+            meta.setLore(lore);
+            itemStack.setItemMeta(meta);
         }
 
         return itemStack;

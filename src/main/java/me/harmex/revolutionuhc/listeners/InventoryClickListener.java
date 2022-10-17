@@ -10,7 +10,6 @@ import me.harmex.revolutionuhc.utils.gui.TeamGUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -37,7 +36,7 @@ public class InventoryClickListener implements Listener {
             event.setCancelled(true);
             if (itemStack != null) {
                 ItemMeta itemMeta = itemStack.getItemMeta();
-                if (itemMeta != null) {
+                if (itemMeta != null && itemMeta.hasCustomModelData()) {
                     if (itemMeta.getCustomModelData() == CustomModelData.role) {
                         RoleGUI.openFor(player);
                     }
@@ -54,7 +53,7 @@ public class InventoryClickListener implements Listener {
                 event.setCancelled(true);
                 if (itemStack != null) {
                     ItemMeta itemMeta = itemStack.getItemMeta();
-                    if (itemMeta != null) {
+                    if (itemMeta != null && itemMeta.hasCustomModelData()) {
                         if (itemMeta.getCustomModelData() == CustomModelData.back) {
                             mainGUI.openFor(player);
                         }
@@ -94,7 +93,7 @@ public class InventoryClickListener implements Listener {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("[RevolutionUHC] Impossible de mettre à jour le rôle du joueur dans la base de données");
         }
         //Team Menu
         try {
@@ -102,7 +101,7 @@ public class InventoryClickListener implements Listener {
                 event.setCancelled(true);
                 if (itemStack != null) {
                     ItemMeta itemMeta = itemStack.getItemMeta();
-                    if (itemMeta != null) {
+                    if (itemMeta != null && itemMeta.hasCustomModelData()) {
                         if (itemMeta.getCustomModelData() == CustomModelData.back) {
                             mainGUI.openFor(player);
                         }
@@ -174,7 +173,7 @@ public class InventoryClickListener implements Listener {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("[RevolutionUHC] Impossible de mettre à jour l'équipe du joueur dans la base de données");
         }
     }
 }
