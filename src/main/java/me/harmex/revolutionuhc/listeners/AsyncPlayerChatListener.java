@@ -32,7 +32,7 @@ public class AsyncPlayerChatListener implements Listener {
             e.printStackTrace();
         }
         event.setFormat(ChatColor.GRAY + "[" + team.getColor() + "" + team.getName() + ChatColor.GRAY + ""
-                + ChatColor.RESET + " - "
+                + ChatColor.GRAY + " - "
                 + ChatColor.GRAY + "" + role.getColor() + "" + role.getName() + ChatColor.GRAY + "]"
                 + ChatColor.RESET + " %s : " + ChatColor.GRAY + "%s"
         );
